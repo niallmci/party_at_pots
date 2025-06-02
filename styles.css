@@ -671,17 +671,35 @@ h3 {
     background: linear-gradient(135deg, #f8faf8 0%, #e8f0e8 100%);
 }
 
-.rsvp-hero h2 {
-    text-align: center;
-    margin-bottom: 3rem;
-    color: #6B8E6B;
-    font-size: 2.5rem;
+.rsvp-hero .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+}
+
+/* Desktop layout - side by side */
+@media (min-width: 1024px) {
+    .rsvp-hero .container {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+        max-width: 1400px;
+        gap: 4rem;
+    }
+    
+    .rsvp-storefront {
+        flex: 0 0 auto;
+    }
+    
+    .nav-and-info-container {
+        flex: 0 0 auto;
+        margin-top: 0 !important;
+    }
 }
 
 .rsvp-storefront {
-    position: relative;
     max-width: 800px;
-    margin: 0 auto;
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
@@ -690,52 +708,223 @@ h3 {
 .storefront-image {
     width: 100%;
     height: auto;
+    display: block;
+}
+
+.rsvp-overlay {
+    position: static;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 0 0 15px 15px;
+    border: 2px solid #6B8E6B;
+    border-top: none;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    margin-top: -5px;
+}
+
+/* Navigation and Info Container */
+.nav-and-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Navigation Buttons */
+.nav-buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.nav-button {
+    position: relative;
+    display: block;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    height: 294px;
+}
+
+.nav-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.nav-button-image {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     display: block;
 }
 
-/* Add a semi-transparent overlay to make form more visible */
-.rsvp-storefront::after {
+.nav-button-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    color: white;
+    padding: 2rem 1.5rem 1.5rem;
+    text-align: center;
+}
+
+.nav-button-overlay h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nav-button-overlay p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+/* Event Info Tab */
+.event-info-tab {
+    background: linear-gradient(135deg, #6B8E6B 0%, #A8C8A8 100%);
+    border: none;
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background-image: 
+        linear-gradient(135deg, rgba(107, 142, 107, 0.85) 0%, rgba(168, 200, 168, 0.85) 100%),
+        url('wedding-photo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.event-info-tab::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.2);
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
     pointer-events: none;
+    z-index: 1;
 }
 
-.rsvp-overlay {
-    position: absolute;
-    /* Fallback position (will be overridden by JavaScript) */
-    top: 68%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(255, 255, 255, 0.95);
+.event-info-tab:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.event-info-tab h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: white;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 2;
+}
+
+.event-details {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.event-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
     backdrop-filter: blur(10px);
-    padding: 1rem;
-    border-radius: 10px;
-    border: 2px solid #6B8E6B;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    width: 60%;
-    max-width: 300px;
-    min-width: 200px;
-    height: auto;
-    min-height: 250px;
-    max-height: 85%;
-    overflow-y: auto;
-    z-index: 5;
-    /* Ensure form doesn't go outside container */
-    bottom: 20px; /* Minimum distance from bottom */
 }
 
+.event-detail:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 1);
+}
+
+.event-detail strong {
+    color: #6B8E6B;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.event-detail span {
+    color: #333;
+    font-weight: 600;
+    font-size: 1.1rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.event-detail a {
+    color: #6B8E6B;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    font-family: 'Playfair Display', serif;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.event-detail a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #6B8E6B, #A8C8A8);
+    transition: width 0.3s ease;
+}
+
+.event-detail a:hover {
+    color: #5a7a5a;
+    transform: translateX(2px);
+}
+
+.event-detail a:hover::after {
+    width: 100%;
+}
+
+.rsvp-note {
+    text-align: center;
+    margin-top: 2rem;
+    font-style: italic;
+    color: #6B8E6B;
+    font-size: 1.1rem;
+}
+
+/* RSVP Form Styles */
 .rsvp-form {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
-    height: 100%;
-    padding: 0.4rem;
+    gap: 1.2rem;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 .form-group {
@@ -745,18 +934,18 @@ h3 {
 
 .form-group label {
     font-weight: 600;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.5rem;
     color: #6B8E6B;
     font-family: 'Playfair Display', serif;
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
 
 .form-group input,
 .form-group textarea {
-    padding: 9px;
+    padding: 12px;
     border: 2px solid #A8C8A8;
     border-radius: 6px;
-    font-size: 0.85rem;
+    font-size: 1rem;
     font-family: 'Open Sans', sans-serif;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -770,24 +959,16 @@ h3 {
 
 .form-group textarea {
     resize: vertical;
-    min-height: 50px;
+    min-height: 80px;
 }
 
 .rsvp-submit {
-    margin-top: 0.5rem;
-    padding: 9px 18px;
-    font-size: 0.85rem;
+    margin-top: 1rem;
+    padding: 12px 24px;
+    font-size: 1rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-}
-
-.rsvp-note {
-    text-align: center;
-    margin-top: 2rem;
-    font-style: italic;
-    color: #6B8E6B;
-    font-size: 1.1rem;
 }
 
 /* Form Success/Error States */
@@ -814,7 +995,7 @@ h3 {
 /* Inline Field Error Messages */
 .field-error {
     color: #dc3545;
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     font-weight: 500;
     margin-top: 0.3rem;
     display: block;
@@ -827,26 +1008,93 @@ h3 {
         padding: 100px 0 60px;
     }
     
-    .rsvp-hero h2 {
-        font-size: 2rem;
-        margin-bottom: 2rem;
+    .rsvp-hero .container {
+        gap: 2rem;
+    }
+    
+    .rsvp-storefront {
+        width: 100%;
     }
     
     .rsvp-overlay {
-        width: 75%;
-        max-width: 280px;
-        padding: 0.8rem;
-        min-height: 230px;
+        padding: 1.5rem;
     }
     
     .rsvp-form {
         gap: 1rem;
-        padding: 0.3rem;
+        max-width: 100%;
     }
     
     .form-group label {
         font-size: 0.9rem;
-        margin-bottom: 0.3rem;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+    
+    .form-group textarea {
+        min-height: 70px;
+    }
+    
+    .rsvp-submit {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+    }
+    
+    /* Navigation and info container on mobile */
+    .nav-and-info-container {
+        margin-top: 1rem;
+        max-width: 100%;
+        gap: 1.5rem;
+    }
+    
+    .nav-button {
+        height: 221px;
+    }
+    
+    .nav-button-overlay h3 {
+        font-size: 1.2rem;
+    }
+    
+    .nav-button-overlay p {
+        font-size: 0.8rem;
+    }
+    
+    /* Event info tab on mobile */
+    .event-info-tab {
+        padding: 2rem;
+    }
+    
+    .event-info-tab h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .event-details {
+        gap: 1rem;
+    }
+    
+    .event-detail {
+        padding: 0.75rem 1rem;
+    }
+    
+    .event-detail strong {
+        font-size: 0.75rem;
+    }
+    
+    .event-detail span,
+    .event-detail a {
+        font-size: 1rem;
+    }
+}
+
+/* Small phone screens */
+@media (max-width: 480px) {
+    .rsvp-overlay {
+        padding: 1rem;
     }
     
     .form-group input,
@@ -855,50 +1103,57 @@ h3 {
         font-size: 0.85rem;
     }
     
-    .form-group textarea {
-        min-height: 50px;
-    }
-    
-    .rsvp-submit {
-        padding: 9px 16px;
-        margin-top: 0.6rem;
-        font-size: 0.85rem;
-    }
-    
-    .rsvp-note {
-        font-size: 1rem;
-        margin-top: 1.5rem;
-    }
-}
-
-/* Small phone screens */
-@media (max-width: 380px) {
-    .rsvp-overlay {
-        width: 85%;
-        max-width: 260px;
-        padding: 0.7rem;
-        min-height: 220px;
-    }
-    
-    .form-group input,
-    .form-group textarea {
-        padding: 7px;
-        font-size: 0.8rem;
-    }
-    
     .form-group label {
         font-size: 0.85rem;
-        margin-bottom: 0.2rem;
-    }
-    
-    .form-group textarea {
-        min-height: 45px;
     }
     
     .rsvp-submit {
-        padding: 8px 14px;
-        margin-top: 0.5rem;
-        font-size: 0.8rem;
+        padding: 10px 18px;
+        font-size: 0.85rem;
+    }
+    
+    .nav-button {
+        height: 172px;
+    }
+    
+    .nav-button-overlay {
+        padding: 1.5rem 1rem 1rem;
+    }
+    
+    .nav-button-overlay h3 {
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    .nav-button-overlay p {
+        font-size: 0.75rem;
+    }
+    
+    /* Event info tab on small phones */
+    .event-info-tab {
+        padding: 1.5rem;
+    }
+    
+    .event-info-tab h3 {
+        font-size: 1.3rem;
+        margin-bottom: 1.25rem;
+    }
+    
+    .event-details {
+        gap: 0.8rem;
+    }
+    
+    .event-detail {
+        padding: 0.6rem 0.8rem;
+    }
+    
+    .event-detail strong {
+        font-size: 0.7rem;
+    }
+    
+    .event-detail span,
+    .event-detail a {
+        font-size: 0.9rem;
     }
 }
 
