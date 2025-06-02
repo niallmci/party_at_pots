@@ -41,12 +41,22 @@ A beautiful, modern wedding website built with HTML, CSS, and JavaScript, design
 ## 📁 File Structure
 
 ```
-├── index.html          # Homepage
-├── faq.html           # FAQ page
-├── things-to-do.html  # Things to do page
-├── styles.css         # All styling
-├── script.js          # JavaScript functionality
-└── README.md          # This file
+├── index.html              # Homepage
+├── faq.html               # FAQ page
+├── things-to-do.html      # Things to do page
+├── assets/                # CSS and JavaScript files
+│   ├── styles.css         # All styling
+│   ├── script.js          # JavaScript functionality
+│   └── google-apps-script-advanced.js  # Advanced Google Apps Script
+├── images/                # Image assets
+│   ├── pot-duggans-storefront.jpg
+│   ├── family-photo.jpg
+│   ├── wedding-photo.jpg
+│   ├── clare-map.jpg
+│   └── [location-images]/  # Various location images
+├── docs/                  # Documentation
+│   └── google-sheets-integration.md
+└── README.md              # This file
 ```
 
 ## ✏️ Customization Guide
@@ -72,14 +82,14 @@ A beautiful, modern wedding website built with HTML, CSS, and JavaScript, design
 
 ### 2. Add Your Photos
 
-Replace the placeholder image sections with your actual photos:
-- Update the `.image-placeholder` divs with `<img>` tags
-- Add photos to the activity cards
-- Consider creating an `images/` folder for organization
+All images are now organized in the `images/` folder. To add your own photos:
+- Replace the existing images in the `images/` folder
+- Keep the same filenames or update the HTML references accordingly
+- Consider organizing images by category (e.g., `images/locations/`, `images/wedding/`)
 
 ### 3. Color Scheme
 
-The website uses a romantic purple and gold color scheme. To change colors, update these CSS variables in `styles.css`:
+The website uses a romantic purple and gold color scheme. To change colors, update these CSS variables in `assets/styles.css`:
 - Primary color: `#8B4B8C` (purple)
 - Secondary color: `#B8860B` (gold)
 - Background gradients and accent colors
@@ -99,6 +109,7 @@ To change fonts, update the Google Fonts link in the HTML files and the CSS font
 - **Modern Layout**: Clean grid systems and card-based design
 - **Smooth Animations**: Scroll-triggered animations and hover effects
 - **Mobile-First**: Responsive design that works on all devices
+- **Organized Structure**: Clean file organization with separate folders for assets, images, and documentation
 
 ## 🛠️ Technical Details
 
@@ -107,6 +118,7 @@ To change fonts, update the Google Fonts link in the HTML files and the CSS font
 - **Responsive Design**: Mobile-first approach with media queries
 - **Accessibility**: Semantic HTML and keyboard navigation support
 - **Performance**: Optimized for fast loading
+- **Clean Organization**: Separated assets and images for better maintainability
 
 ## 📱 Browser Support
 
@@ -119,7 +131,7 @@ To change fonts, update the Google Fonts link in the HTML files and the CSS font
 ## 🎯 Next Steps
 
 1. **Customize the content** with your wedding details
-2. **Add your photos** to replace placeholders
+2. **Replace images** in the `images/` folder with your own photos
 3. **Test on mobile devices** to ensure everything looks good
 4. **Share the link** with your wedding guests
 5. **Consider adding**:
@@ -135,6 +147,7 @@ To change fonts, update the Google Fonts link in the HTML files and the CSS font
 - **Test thoroughly**: Check the website on different devices and browsers
 - **Backup your work**: Keep local copies of your customized files
 - **Monitor analytics**: Consider adding Google Analytics to track visitor engagement
+- **File Organization**: The new folder structure makes it easier to manage and update content
 
 ## 🤝 Support
 

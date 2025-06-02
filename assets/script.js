@@ -15,7 +15,8 @@ if (hamburger && navMenu) {
     }));
 }
 
-// FAQ Accordion Functionality
+// FAQ Accordion Functionality - DISABLED: All answers now visible by default
+/*
 const faqQuestions = document.querySelectorAll('.faq-question');
 
 faqQuestions.forEach(question => {
@@ -34,6 +35,7 @@ faqQuestions.forEach(question => {
         }
     });
 });
+*/
 
 // Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -126,27 +128,19 @@ function handleRSVPSubmission(e) {
     const contact = formData.get('contact').trim();
     const message = formData.get('message').trim();
     
-    // Basic validation
+    // Basic validation - only whosComing is required now
     if (!whosComing) {
         showFieldError('whosComing', 'Required');
         return;
     }
     
-    if (!contact) {
-        showFieldError('contact', 'Required');
-        return;
-    }
-    
-    // Email or phone validation
-    if (!isValidContact(contact)) {
-        showFieldError('contact', 'Invalid format');
-        return;
-    }
-    
-    // Show loading state
-    const originalText = submitButton.textContent;
-    submitButton.textContent = 'Sending...';
+    // Show loading state with smooth transition
+    submitButton.textContent = 'Sending Request';
     submitButton.disabled = true;
+    submitButton.style.background = '#ffa500'; // Orange color for sending
+    submitButton.style.borderColor = '#ffa500';
+    submitButton.style.transition = 'all 0.3s ease';
+    submitButton.style.cursor = 'wait';
     
     // Prepare data for Google Sheets
     const data = {
@@ -168,29 +162,32 @@ function handleRSVPSubmission(e) {
         body: JSON.stringify(data)
     })
     .then(() => {
-        // Change button to "RECEIVED" and keep it disabled
-        submitButton.textContent = 'RECEIVED';
-        submitButton.style.background = '#28a745';
-        submitButton.style.borderColor = '#28a745';
-        submitButton.style.cursor = 'default';
-        
-        // Reset form fields after a delay
+        // Change button to success state with smooth transition
         setTimeout(() => {
-            form.reset();
-        }, 1000);
+            submitButton.textContent = 'Request Accepted: Lets Party';
+            submitButton.style.background = '#28a745'; // Green color for success
+            submitButton.style.borderColor = '#28a745';
+            submitButton.style.cursor = 'default';
+            
+            // Reset form fields after showing success
+            setTimeout(() => {
+                form.reset();
+            }, 1500);
+        }, 800); // Small delay to show the sending state
     })
     .catch(error => {
         console.error('Error sending RSVP:', error);
         submitButton.textContent = 'Failed. Try Again';
         submitButton.disabled = false;
-        submitButton.style.background = '#dc3545';
+        submitButton.style.background = '#dc3545'; // Red color for error
         submitButton.style.borderColor = '#dc3545';
+        submitButton.style.cursor = 'pointer';
         
-        // Reset button after a delay
+        // Reset button after a delay for retry
         setTimeout(() => {
-            submitButton.textContent = originalText;
-            submitButton.style.background = '';
-            submitButton.style.borderColor = '';
+            submitButton.textContent = 'Send Request to Party';
+            submitButton.style.background = '#6B8E6B'; // Back to original green
+            submitButton.style.borderColor = '#6B8E6B';
         }, 3000);
     });
 }
