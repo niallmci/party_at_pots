@@ -30,17 +30,21 @@
         </div>
     </nav>
 
-    <main class="page-content">
+    <section class="things-hero">
         <div class="container">
             <!-- Featured Map Section -->
             <section class="map-section">
                 <div class="map-container">
                     <div class="map-image">
-                        <img src="images/clare-map.jpg" alt="Hand-drawn map of County Clare showing all the best spots to visit" class="clare-map">
+                        <img src="images/clare-map.jpg" alt="Hand-drawn map of County Clare showing all the best spots to visit" class="clare-map clickable-map" id="clareMap">
                     </div>
                 </div>
             </section>
+        </div>
+    </section>
 
+    <main class="page-content">
+        <div class="container">
             <section class="activities-section">
                 <h2>North Clare</h2>
                 <div class="activity-grid">
@@ -95,6 +99,10 @@
                         </div>
                         <div class="activity-content">
                             <h3>The Burren</h3>
+                            <p><strong>Lough Avalla Farm Walk:</strong>Savage walk in the Burren, lovely tea room also</p>
+                            <p><a href="https://olliestours.com/everything-you-need-to-know-about-the-lough-avalla-farm-loop-ireland-hikes-ollies-tours/" target="_blank">Caves Website</a></p>
+
+
                             <p><strong>Aillwee Caves:</strong> Underground cave system with guided tours</p>
                             <p><a href="https://www.aillweecave.ie/" target="_blank">Caves Website</a> | <a href="https://maps.google.com/maps?q=Aillwee+Caves,+Ballyvaughan,+Clare,+Ireland" target="_blank">View on Google Maps</a></p>
                             
@@ -265,13 +273,19 @@
 
             <div class="contact-section">
                 <h2>Need More Recommendations?</h2>
-                <p>If you're looking for something specific or have questions about any of these recommendations, don't hesitate to reach out to us! We're happy to provide more personalized suggestions based on your interests.</p>
-                <div class="hero-buttons">
-                    <a href="mailto:[your-email]" class="btn btn-primary">Contact Amy & Niall</a>
-                </div>
+                <p>If you're looking for something specific or have questions about any of these recommendations, don't hesitate to reach out to us! We're happy to provide more personalised suggestions.</p>
             </div>
         </div>
     </main>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox">
+        <div class="lightbox-content">
+            <span class="lightbox-close">&times;</span>
+            <img id="lightbox-image" class="lightbox-image" src="" alt="">
+            <div class="lightbox-caption">Click and drag to explore the map in detail</div>
+        </div>
+    </div>
 
     <footer class="footer">
         <div class="container">

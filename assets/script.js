@@ -223,9 +223,51 @@ function clearFieldErrors() {
     const existingErrors = document.querySelectorAll('.field-error');
     existingErrors.forEach(error => error.remove());
     
-    // Reset field border colors
-    const fields = document.querySelectorAll('#rsvpForm input, #rsvpForm textarea');
-    fields.forEach(field => {
+    // Remove error styling from form fields
+    const formFields = document.querySelectorAll('.form-group input, .form-group textarea');
+    formFields.forEach(field => {
         field.style.borderColor = '#A8C8A8';
     });
-} 
+}
+
+// Lightbox functionality for map zoom
+document.addEventListener('DOMContentLoaded', function() {
+    const mapImage = document.getElementById('clareMap');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxClose = document.querySelector('.lightbox-close');
+    
+    if (mapImage && lightbox && lightboxImage) {
+        // Open lightbox when map is clicked
+        mapImage.addEventListener('click', function() {
+            lightboxImage.src = this.src;
+            lightboxImage.alt = this.alt;
+            lightbox.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        });
+        
+        // Close lightbox when X is clicked
+        if (lightboxClose) {
+            lightboxClose.addEventListener('click', closeLightbox);
+        }
+        
+        // Close lightbox when clicking outside the image
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+        
+        // Close lightbox with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && lightbox.style.display === 'block') {
+                closeLightbox();
+            }
+        });
+        
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+    }
+}); 
