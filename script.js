@@ -100,4 +100,135 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         document.body.style.opacity = '1';
     }, 100);
-}); 
+});
+
+// RSVP Form Handling
+document.addEventListener('DOMContentLoaded', function() {
+    const rsvpForm = document.getElementById('rsvpForm');
+    
+    if (rsvpForm) {
+        rsvpForm.addEventListener('submit', handleRSVPSubmission);
+    }
+});
+
+function handleRSVPSubmission(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const formData = new FormData(form);
+    const submitButton = form.querySelector('.rsvp-submit');
+    
+    // Clear any existing error messages first
+    clearFieldErrors();
+    
+    // Get form values
+    const whosComing = formData.get('whosComing').trim();
+    const contact = formData.get('contact').trim();
+    const message = formData.get('message').trim();
+    
+    // Basic validation
+    if (!whosComing) {
+        showFieldError('whosComing', 'Required');
+        return;
+    }
+    
+    if (!contact) {
+        showFieldError('contact', 'Required');
+        return;
+    }
+    
+    // Email or phone validation
+    if (!isValidContact(contact)) {
+        showFieldError('contact', 'Invalid format');
+        return;
+    }
+    
+    // Show loading state
+    const originalText = submitButton.textContent;
+    submitButton.textContent = 'Sending...';
+    submitButton.disabled = true;
+    
+    // Prepare data for Google Sheets
+    const data = {
+        whosComing: whosComing,
+        contact: contact,
+        message: message,
+        timestamp: new Date().toISOString()
+    };
+    
+    // Send data to Google Apps Script Web App
+    fetch('https://script.google.com/macros/s/AKfycbxK-bhn9IYX2jMKeQ6ZAcgZ4z8iTwOp9a4qSu_3CnHibcQfMuz9w8V7IBduGiqM19g/exec', {
+        method: 'POST',
+        mode: 'no-cors', // Required for Google Apps Script
+        cache: 'no-cache',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        redirect: 'follow',
+        body: JSON.stringify(data)
+    })
+    .then(() => {
+        // Change button to "RECEIVED" and keep it disabled
+        submitButton.textContent = 'RECEIVED';
+        submitButton.style.background = '#28a745';
+        submitButton.style.borderColor = '#28a745';
+        submitButton.style.cursor = 'default';
+        
+        // Reset form fields after a delay
+        setTimeout(() => {
+            form.reset();
+        }, 1000);
+    })
+    .catch(error => {
+        console.error('Error sending RSVP:', error);
+        submitButton.textContent = 'Failed. Try Again';
+        submitButton.disabled = false;
+        submitButton.style.background = '#dc3545';
+        submitButton.style.borderColor = '#dc3545';
+        
+        // Reset button after a delay
+        setTimeout(() => {
+            submitButton.textContent = originalText;
+            submitButton.style.background = '';
+            submitButton.style.borderColor = '';
+        }, 3000);
+    });
+}
+
+function isValidContact(contact) {
+    // Simple email regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    // Simple phone regex (allows various formats)
+    const phoneRegex = /^[\+]?[\d\s\-\(\)]{10,}$/;
+    
+    return emailRegex.test(contact) || phoneRegex.test(contact);
+}
+
+function showFieldError(fieldId, message) {
+    const field = document.getElementById(fieldId);
+    const formGroup = field.parentNode;
+    
+    // Create error span
+    const errorSpan = document.createElement('span');
+    errorSpan.className = 'field-error';
+    errorSpan.textContent = message;
+    
+    // Add error styling to field
+    field.style.borderColor = '#dc3545';
+    
+    // Insert error message after the field
+    formGroup.appendChild(errorSpan);
+}
+
+function clearFieldErrors() {
+    // Remove all existing error messages
+    const existingErrors = document.querySelectorAll('.field-error');
+    existingErrors.forEach(error => error.remove());
+    
+    // Reset field border colors
+    const fields = document.querySelectorAll('#rsvpForm input, #rsvpForm textarea');
+    fields.forEach(field => {
+        field.style.borderColor = '#A8C8A8';
+    });
+} 
