@@ -38,6 +38,7 @@
                     <img src="images/pot-duggans-storefront.jpg" alt="Pot Duggans storefront in Ennistymon" class="storefront-image">
                     <div class="rsvp-overlay">
                         <form class="rsvp-form" id="rsvpForm">
+                            <p class="rsvp-intro">Hello there! We look forward to seeing lots of you in Ennistymon this September, but please first let us know who is coming in your party (to plan for pizzas), and then explore the info we've put together for ye in the rest of the website. Any questions just get onto us,<br> Love Niall & Amy</p>
                             <div class="form-group">
                                 <label for="whosComing">Who's Coming? List all names please!</label>
                                 <input type="text" id="whosComing" name="whosComing" placeholder="Any plus ones or kids we should know about?" required>
@@ -99,9 +100,22 @@
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Amy & Niall's Post-Wedding Hooley. Made with ❤️</p>
+            <p>&copy; 2025 Amy & Niall's Post-Wedding Hooley. Made with ❤️. Any website feedback pls send to Niall and be nice he's sensitive.</p>
         </div>
     </footer>
+
+    <!-- Celebration Popup Modal -->
+    <div id="celebrationModal" class="celebration-modal">
+        <div class="celebration-content">
+            <button class="celebration-close" onclick="closeCelebrationModal()">&times;</button>
+            <div class="celebration-image-container">
+                <img src="images/lets_party.jpg" alt="Let's Party!" class="celebration-image">
+                <div class="celebration-text-overlay">
+                    <h2>Request Received: Lets Party 🙏</h2>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="assets/script.js"></script>
 </body>
